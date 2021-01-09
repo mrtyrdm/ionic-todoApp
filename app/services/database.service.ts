@@ -21,7 +21,10 @@ export class DatabaseService {
   }
   //CRUD - Create, Read, Update, Delete
   addTodo(title,desc){
-    this.database.executeSql("insert into todo (title, desc) values ('"+title+"', '"+desc+"')");
+    return this.database.executeSql("insert into todo (title,desc) values ('"+title+"','"+desc+"')").then((data)=>{
+      alert('Veri Eklendi');
+      return data;
+    });
   }
   getAllTodo(){
     return this.database.executeSql('select * from todo',[]).then((data)=>{
@@ -35,12 +38,25 @@ export class DatabaseService {
     });
   }
   updateTodo(id){
-    
+    return this.database.executeSql('select * from todo where ID='+id,[]).then((data)=>{
+      let todos = [];
+      if(data.rows.length>0){
+        for(let i=0;i<data.rows.length;i++){
+          todos.push({ID:data.rows.item(i).ID, title:data.rows.item(i).title,desc:data.rows.item(i).desc});    
+        }
+      }
+      return todos;
+    });
+
+  }
+  updateTodoSave(title,desc,id) {
+    return this.database.executeSql("update todo set title='"+title+"',desc='"+desc+"' where ID="+id).then((data)=>{
+      alert('Veri Eklendi');
+      return data;
+    });
   }
   deleteTodo(id){
     this.database.executeSql('delete from todo where ID='+id);
   }
-
-  
 
 }

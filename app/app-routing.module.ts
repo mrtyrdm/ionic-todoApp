@@ -15,10 +15,9 @@ const routes: Routes = [
     path: 'addtodo',
     loadChildren: () => import('./addtodo/addtodo.module').then( m => m.AddtodoPageModule)
   },
-
   {
-    path: 'addtodo/:id',
-    loadChildren: () => import('./addtodo/addtodo.module').then( m => m.AddtodoPageModule)
+    path: 'update/:id',
+    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule)
   },
 ];
 
